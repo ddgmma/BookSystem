@@ -1,17 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Book {
-    int id;
-    String name;
-    boolean borrowed; // flase=没被借走
-
-    Book(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-}
-
 public class Main {
     static ArrayList<Book> books = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
