@@ -1,53 +1,67 @@
+import model.Book;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static ArrayList<Book> books = new ArrayList<>();
-    static Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) {
-        // 向 books 集合添加两个元素
-        books.add(new Book(1, "语文"));
-        books.add(new Book(2, "数学"));
+        // 创建一个books集合，用于存放图书
+        ArrayList<Book> books = new ArrayList<>();
 
+        // 创建图书对象
+        Book book = new Book(1, "语文", "张三", true);
+        Book book1 = new Book(2, "数学", "李四",true);
+
+        // 添加图书
+        books.add(book);
+        books.add(book1);
+
+//        // 遍历图书
+//        for (int i = 0; i < books.size(); i++) {
+//            Book b = books.get(i);
+//            System.out.println(b.getId() + "|" + b.get书名() + "|" + b.get作者());
+//        }
+
+        // 提示：
+        System.out.println("\t欢迎使用图书管理系统！");
+        System.out.println("=====================================");
+
+        // 提示用户输入
+        @SuppressWarnings("resource") // 抑制资源泄露警告
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("输入： |  1  |   2  |  3  |  4  |");
+        System.out.println("功能： | 查询 | 借书 | 还书 | 退出 |");
+        System.out.println("-------------------------------------");
+
+        // 选择功能
         while (true) {
-            System.out.println("1.显示图书 2.借书 3.还书 4.退出"); // 提示键位
-            int cmd = scanner.nextInt();
-
-            switch (cmd) {
+            switch (scanner.nextInt()) {
                 case 1:
-                    for (int i = 0; i < books.size(); i++) {
-                        Book num = books.get(i);
-                        System.out.println(num.id + "|" + num.name);
+                    // 遍历 图书库
+                    System.out.println("---------------查询结果---------------"); //分割线
+                    for (Book b : books) {
+                        System.out.println(b.getId() + "|" + b.get书名() + "|" + b.get作者() + "|" + b.is借阅状态());
                     }
+                    System.out.println("-------------------------------------");
                     break;
+
                 case 2:
-                    System.out.println("请输入图书 id");
+                    System.out.print("请输入要借书的编号：");
                     int id = scanner.nextInt();
-                    for (Book num : books) {
-                        if (num.id == id) {
-                            System.out.println("借书成功");
-                            num.borrowed = true;
+                    System.out.println("———————————————借阅状态-------------");
+                    for (Book b : books) {
+                        if (id == b.getId()) {
+                            b.set借阅状态(false);
+                            System.out.println("已借出：" + b.getId() + "|" + b.get书名() + "|" + b.get作者());
                         }
                     }
+                    System.out.println("--------------------------------------");
                     break;
-                case 3:
-                    System.out.println("请输入要还的书的 id：");
-                    int id2 = scanner.nextInt();
-                    for (int i = 0; i < books.size(); i++) {
-                        Book num = books.get(i);
-                        if (num.id == id2) {
-                            System.out.println("还书成功");
-                            num.borrowed = false;
-                        }
-                    }
-                    break;
-                case 4:
-                    System.out.println("退出");
-                    return;
-                default:
-                    return;
+
+
             }
         }
+
+
     }
 }
